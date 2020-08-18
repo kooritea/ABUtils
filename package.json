@@ -1,6 +1,6 @@
 {
   "name": "@kooritea-tool/ab-utils",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "nodejs和浏览器通用ArrayBuffer方法",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
