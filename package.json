@@ -1,11 +1,16 @@
 {
-  "name": "@kooritea-tool/ABUtils",
-  "version": "0.0.2",
+  "name": "@kooritea-tool/ab-utils",
+  "version": "0.0.1",
   "description": "nodejs和浏览器通用ArrayBuffer方法",
-  "main": "dist/main.js",
-  "types": "dist/main.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/index.js"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx webpack --config webpack.config.build.js",
+    "watch": "npx tsc --watch"
   },
   "author": "kooritea",
   "license": "ISC",
