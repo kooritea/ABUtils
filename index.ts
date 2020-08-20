@@ -1,4 +1,7 @@
 const getView = function(buffer:ArrayBuffer,view:1|2|4){
+  if(buffer.byteLength%view !== 0){
+    throw new Error("param view error: buffer.byteLength % view !== 0")
+  }
   switch(view){
     case 1:
       return new Uint8Array(buffer)
@@ -81,7 +84,7 @@ export const utf16beToUTF16le = function(utf16be:Uint8Array):Uint8Array{
  * 此方法会清除位于前面的字符顺序标记(只有utf16或传入Uint16Array才可能会有)
  * @param arrayBuffer ArrayBuffer或者view
  * @param encode 传入view时该项无效，ascii使用Uint8Array utf16使用Uint16Array
- * @param cleanZero 是否清除非结尾的0
+ * @param cleanZero 是否清除非结尾的0,结尾的0会被删除
  */
 export const toString = function(arrayBuffer:ArrayBuffer|Uint16Array|Uint8Array,encode:'ascii'|'utf16le'|'utf16be' = 'ascii',cleanZero:boolean = false):string{
   let dataString = "";
@@ -111,7 +114,10 @@ export const toString = function(arrayBuffer:ArrayBuffer|Uint16Array|Uint8Array,
     }
   }
   for (let i = 0; i < bufferView.length; i++) {
-    if(bufferView[i] === 0 && cleanZero && i>=bufferView.length-2){
+    if(bufferView[i] === 0 && cleanZero && i<bufferView.length-2){
+      continue
+    }
+    if(i>=bufferView.length-2 && bufferView[i] === 0){
       continue
     }
     dataString += String.fromCharCode(bufferView[i]);

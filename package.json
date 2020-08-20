@@ -1,6 +1,6 @@
 {
   "name": "@kooritea-tool/ab-utils",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "description": "nodejs和浏览器通用ArrayBuffer方法",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,7 +11,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx webpack --config webpack.config.build.js",
-    "watch": "npx tsc --watch"
+    "watch": "npx tsc --watch",
+    "release": "npm version patch --no-git-tag-version && npm run build && npm publish --access=public"
   },
   "author": "kooritea",
   "license": "ISC",

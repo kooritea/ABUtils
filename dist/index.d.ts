@@ -25,7 +25,7 @@ export declare const utf16beToUTF16le: (utf16be: Uint8Array) => Uint8Array;
  * 此方法会清除位于前面的字符顺序标记(只有utf16或传入Uint16Array才可能会有)
  * @param arrayBuffer ArrayBuffer或者view
  * @param encode 传入view时该项无效，ascii使用Uint8Array utf16使用Uint16Array
- * @param cleanZero 是否清除非结尾的0
+ * @param cleanZero 是否清除非结尾的0,结尾的0会被删除
  */
 export declare const toString: (arrayBuffer: ArrayBuffer | Uint16Array | Uint8Array, encode?: 'ascii' | 'utf16le' | 'utf16be', cleanZero?: boolean) => string;
 /**
