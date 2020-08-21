@@ -36,8 +36,9 @@ export declare const toString: (arrayBuffer: ArrayBuffer | Uint16Array | Uint8Ar
  * @param encode
  * @param addBOM default false 添加fffe或feff的字节顺序控制符(只用utf16le/utf16be编码有效) 当str不为空字符串才有效
  * @param addEnd default false 添加0或00的结束控制字符
+ * @param fixLen 固定输出的字节长度，长度不足时补0，超出时报错
  */
-export declare const toArrayBuffer: (str: string, encode: 'ascii' | 'utf16le' | 'utf16be', addBOM?: boolean, addEnd?: boolean) => ArrayBuffer;
+export declare const toArrayBuffer: (str: string, encode: 'ascii' | 'utf16le' | 'utf16be', addBOM?: boolean, addEnd?: boolean, fixLen?: number | undefined) => ArrayBuffer;
 /**
  * 从指定地方开始截取到0x00或0x0000为止
  * 不会清除字节顺序标记

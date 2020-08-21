@@ -134,8 +134,9 @@ export const toString = function(arrayBuffer:ArrayBuffer|Uint16Array|Uint8Array,
  * @param encode 
  * @param addBOM default false 添加fffe或feff的字节顺序控制符(只用utf16le/utf16be编码有效) 当str不为空字符串才有效
  * @param addEnd default false 添加0或00的结束控制字符
+ * @param fixLen 固定输出的字节长度，长度不足时补0，超出时报错
  */
-export const toArrayBuffer = function(str:string,encode:'ascii'|'utf16le'|'utf16be',addBOM:boolean = false,addEnd:boolean = false):ArrayBuffer{
+export const toArrayBuffer = function(str:string,encode:'ascii'|'utf16le'|'utf16be',addBOM:boolean = false,addEnd:boolean = false,fixLen?:number):ArrayBuffer{
   let bufferView
   if(encode === 'ascii'){
     bufferView = new Uint8Array(str.length + (addEnd?1:0))
@@ -168,7 +169,18 @@ export const toArrayBuffer = function(str:string,encode:'ascii'|'utf16le'|'utf16
   }else{
     throw new Error("unsupport encode: "+encode)
   }
-  return bufferView.buffer
+  if(typeof fixLen === 'number'){
+    if(bufferView.buffer.byteLength <= fixLen){
+      return concat(
+        bufferView.buffer,
+        new ArrayBuffer(fixLen - bufferView.buffer.byteLength)
+      )
+    }else{
+      throw new Error("String Buffer length is greater than fixLen")
+    }
+  }else{
+    return bufferView.buffer
+  }
   
 }
 
@@ -215,11 +227,13 @@ export const concat = function(...args:ArrayBuffer[]):ArrayBuffer{
   const resultView = new Uint8Array(result)
   let offset = 0
   for(let item of args){
-    const view = new Uint8Array(item)
-    for(let i=0;i<view.length;i++){
-      resultView[i+offset] = view[i]
+    if(item instanceof ArrayBuffer){
+      const view = new Uint8Array(item)
+      for(let i=0;i<view.length;i++){
+        resultView[i+offset] = view[i]
+      }
+      offset += view.length
     }
-    offset += view.length
   }
   return result
 }
