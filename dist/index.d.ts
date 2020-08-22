@@ -1,4 +1,3 @@
-/// <reference types="node" />
 /**
  * 读取10进制正整数
  * @param buffer
@@ -48,5 +47,9 @@ export declare const toArrayBuffer: (str: string, encode: 'ascii' | 'utf16le' | 
  * @param encode
  */
 export declare const sliceToZero: (arrayBuffer: ArrayBuffer, start: number, encode: 'ascii' | 'utf16') => ArrayBuffer;
-export declare const bufferToArrayBuffer: (buffer: Buffer) => ArrayBuffer;
+/**
+ *
+ * @param buffer NODEJS Buffer
+ */
+export declare const bufferToArrayBuffer: (buffer: any) => ArrayBuffer;
 export declare const concat: (...args: ArrayBuffer[]) => ArrayBuffer;

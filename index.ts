@@ -209,7 +209,11 @@ export const sliceToZero = function(arrayBuffer:ArrayBuffer,start:number,encode:
   return bufferView.slice(start).buffer
 }
 
-export const bufferToArrayBuffer = function(buffer:Buffer):ArrayBuffer {
+/**
+ * 
+ * @param buffer NODEJS Buffer
+ */
+export const bufferToArrayBuffer = function(buffer:any):ArrayBuffer {
   let arrayBuffer = new ArrayBuffer(buffer.length);
   let bufferView = new Uint8Array(arrayBuffer);
   for (let i = 0; i < buffer.length; ++i) {
